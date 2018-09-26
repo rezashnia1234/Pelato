@@ -25,12 +25,8 @@
 			window_height = $(window).height();
 		}
 		function alertDismissed_check_net(){
-			//console.log("alertDismissed_check_net : loop :" + window.sessionStorage.getItem("do_loop"));
-			if(buttonIndex==0)
-			{
-				navigator.app.exitApp();
-			}
-			else
+			console.log("alertDismissed_check_net : loop :" + window.sessionStorage.getItem("do_loop"));
+			if(window.sessionStorage.getItem("do_loop")=="1")
 			{
 				window.sessionStorage.removeItem("do_loop");
 				check_net(true,true,true);
@@ -50,42 +46,21 @@
 						window.sessionStorage.setItem("do_loop","1");
 					else
 						window.sessionStorage.setItem("do_loop","0");
-					/*
-					navigator.notification.confirm(
-						'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید\nشماره پشتیبانی: 02144592768',  // message
+					
+					navigator.notification.alert(
+						'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید!',  // message
 						alertDismissed_check_net,         // callback
-						'توجه',            					// title
-						['بررسی مجدد','خروج از برنامه']			// buttonName
-					);
-					*/
-					navigator.notification.confirm(
-						'آیا تمایل به خروج از برنامه را دارید؟',	// message
-						onExitConfirm,								// callback
-						'توجه',										// title
-						['بله','خیر']								// buttonName
+						'توجه',            // title
+						'تائید'                  // buttonName
 					);
 				}
 				return false;
 			}
 			window.location.href = "http://e.pelato.ir/centerlogin";
-			if(reload)
-			{
 
-			}
 			return true;
 		}
 
-
-		/*
-		$(document).ready(function(){
-			setTimeout(function(){
-				if (! window.cordova)
-					//onDeviceReady();
-					$('.mypreload').html("");
-					$('.myregister').html("");
-			}, 2000);
-		});
-		*/
 
 		function onDeviceReady() {
 			StatusBar.overlaysWebView(false);
@@ -95,13 +70,6 @@
 				networkState = navigator.connection.effectiveType;
 			check_net(true,true,false);
 		}
-		function need_internet(){
-			if(does_we_have_intenet)
-				return true;
-			else
-				return false;
-		};
-
 		
 		function uniqueDeviceIDsuccess_index(uuid)
 		{
