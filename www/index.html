@@ -25,7 +25,7 @@
 			window_height = $(window).height();
 		}
 		function alertDismissed_check_net(){
-			console.log("alertDismissed_check_net : loop :" + window.sessionStorage.getItem("do_loop"));
+			//console.log("alertDismissed_check_net : loop :" + window.sessionStorage.getItem("do_loop"));
 			if(buttonIndex==0)
 			{
 				navigator.app.exitApp();
@@ -36,30 +36,6 @@
 				check_net(true,true,true);
 			}
 		};
-		function check_server(handle_check_server) {
-			var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
-			$.ajax({
-					url: server_url + "check_net.aspx",
-					type: "POST",
-					data: {
-						act: "check_net",//timeStampInMs
-					},
-					//async: true,
-					success : function(text)
-					{
-						handle_check_server(text);
-					},
-					error: function(jqXHR, exception) {
-						window.sessionStorage.setItem("do_loop","1");
-						navigator.notification.confirm(
-							'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید\nشماره پشتیبانی: 02144592768',  // message
-							alertDismissed_check_net,         // callback
-							'توجه',            // title
-							['بررسی مجدد','خروج از برنامه']			// buttonName
-						);
-					},
-			});
-		}
 		function check_net(show_alert,do_loop,reload){
 			if(navigator.connection.type)
 				networkState = navigator.connection.type;
@@ -74,35 +50,24 @@
 						window.sessionStorage.setItem("do_loop","1");
 					else
 						window.sessionStorage.setItem("do_loop","0");
-					
+					/*
 					navigator.notification.confirm(
 						'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید\nشماره پشتیبانی: 02144592768',  // message
 						alertDismissed_check_net,         // callback
-						'توجه',            // title
+						'توجه',            					// title
 						['بررسی مجدد','خروج از برنامه']			// buttonName
+					);
+					*/
+					navigator.notification.confirm(
+						'آیا تمایل به خروج از برنامه را دارید؟',	// message
+						onExitConfirm,								// callback
+						'توجه',										// title
+						['بله','خیر']								// buttonName
 					);
 				}
 				return false;
 			}
-			/*
-			check_server(function(text){
-				console.log(text);
-				if(text!="1")
-				{
-					window.sessionStorage.setItem("do_loop","1");
-					navigator.notification.alert(
-						'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید!',  // message
-						alertDismissed_check_net,         // callback
-						'توجه',            // title
-						'تائید'                  // buttonName
-					);
-					return false;
-				}
-				else
-					window.location.href = "https://www.cafe-joo.com/app/";
-			});
-			*/
-				window.location.href = "http://e.pelato.ir/centerlogin";
+			window.location.href = "http://e.pelato.ir/centerlogin";
 			if(reload)
 			{
 
@@ -136,15 +101,7 @@
 			else
 				return false;
 		};
-		function need_internet_alert(){
-			navigator.notification.confirm(
-				'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید\nشماره پشتیبانی: 02144592768',  // message
-				alertDismissed,         // callback
-				'توجه',            // title
-				['بررسی مجدد','خروج از برنامه']			// buttonName
-			);
-			function alertDismissed(){};
-		};
+
 		
 		function uniqueDeviceIDsuccess_index(uuid)
 		{
