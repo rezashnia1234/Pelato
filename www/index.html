@@ -26,7 +26,11 @@
 		}
 		function alertDismissed_check_net(){
 			console.log("alertDismissed_check_net : loop :" + window.sessionStorage.getItem("do_loop"));
-			if(window.sessionStorage.getItem("do_loop")=="1")
+			if(buttonIndex==0)
+			{
+				navigator.app.exitApp();
+			}
+			else
 			{
 				window.sessionStorage.removeItem("do_loop");
 				check_net(true,true,true);
@@ -47,11 +51,11 @@
 					},
 					error: function(jqXHR, exception) {
 						window.sessionStorage.setItem("do_loop","1");
-						navigator.notification.alert(
-							'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید!',  // message
+						navigator.notification.confirm(
+							'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید\nشماره پشتیبانی: 02144592768',  // message
 							alertDismissed_check_net,         // callback
 							'توجه',            // title
-							'تائید'                  // buttonName
+							['بررسی مجدد','خروج از برنامه']			// buttonName
 						);
 					},
 			});
@@ -71,11 +75,11 @@
 					else
 						window.sessionStorage.setItem("do_loop","0");
 					
-					navigator.notification.alert(
-						'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید!',  // message
+					navigator.notification.confirm(
+						'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید\nشماره پشتیبانی: 02144592768',  // message
 						alertDismissed_check_net,         // callback
 						'توجه',            // title
-						'تائید'                  // buttonName
+						['بررسی مجدد','خروج از برنامه']			// buttonName
 					);
 				}
 				return false;
@@ -133,11 +137,11 @@
 				return false;
 		};
 		function need_internet_alert(){
-			navigator.notification.alert(
-				'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید!',  // message
+			navigator.notification.confirm(
+				'شما برای استفاده از خدمات این نرم افزار به اینترنت نیاز دارید\nشماره پشتیبانی: 02144592768',  // message
 				alertDismissed,         // callback
 				'توجه',            // title
-				'تائید'                  // buttonName
+				['بررسی مجدد','خروج از برنامه']			// buttonName
 			);
 			function alertDismissed(){};
 		};
